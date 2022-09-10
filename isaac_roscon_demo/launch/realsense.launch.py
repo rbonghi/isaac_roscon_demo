@@ -25,6 +25,7 @@ from launch.actions import IncludeLaunchDescription
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch_ros.descriptions import ComposableNode
 from ament_index_python.packages import get_package_share_directory
+from launch.actions import ExecuteProcess
 
 import tempfile
 
@@ -104,9 +105,10 @@ def generate_launch_description():
         output='screen'
     )
 
-    #rosbridge_server_launch = IncludeLaunchDescription(
-    #    PythonLaunchDescriptionSource(
-    #        [pkg_rosbridge_server, '/launch/rosbridge_websocket_launch.xml'])
-    #)
+    # https://github.com/RobotWebTools/rosbridge_suite/issues/407
+    rosbridge_process = ExecuteProcess(
+        cmd=["ros2", "launch", "rosbridge_server", "rosbridge_websocket_launch.xml"],
+        output="screen",
+    )
 
-    return launch.LaunchDescription([realsense_camera_node, container])
+    return launch.LaunchDescription([realsense_camera_node, container, rosbridge_process])
