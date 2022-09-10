@@ -63,11 +63,12 @@ def generate_launch_description():
         package='isaac_ros_image_proc',
         plugin='nvidia::isaac_ros::image_proc::ImageFormatConverterNode',
         name='image_format_node_left',
+        namespace='isaac_ros',
         parameters=[{
                 'encoding_desired': 'rgb8',
         }],
         remappings=[
-        ('image_raw', 'infra1/image_rect_raw_mono'),
+        ('image_raw', '/infra1/image_rect_raw_mono'),
         ('image', 'infra1/image_rect_raw')]
     )
 
@@ -75,17 +76,19 @@ def generate_launch_description():
         package='isaac_ros_image_proc',
         plugin='nvidia::isaac_ros::image_proc::ImageFormatConverterNode',
         name='image_format_node_right',
+        namespace='isaac_ros',
         parameters=[{
                 'encoding_desired': 'rgb8',
         }],
         remappings=[
-        ('image_raw', 'infra2/image_rect_raw_mono'),
+        ('image_raw', '/infra2/image_rect_raw_mono'),
         ('image', 'infra2/image_rect_raw')]
     )
 
     disparity_node = ComposableNode(
         name='disparity',
         package='isaac_ros_ess',
+        namespace='isaac_ros',
         plugin='nvidia::isaac_ros::dnn_stereo_disparity::ESSDisparityNode',
         parameters=[{'engine_file_path': engine_file_path}],
         remappings=[
@@ -98,7 +101,7 @@ def generate_launch_description():
 
     container = ComposableNodeContainer(
         name='disparity_container',
-        namespace='disparity',
+        namespace='isaac_ros',
         package='rclcpp_components',
         executable='component_container_mt',
         composable_node_descriptions=[disparity_node, image_format_converter_node_left, image_format_converter_node_right],
