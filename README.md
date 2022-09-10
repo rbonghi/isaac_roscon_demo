@@ -7,7 +7,7 @@ Demo docker for ROScon 2022
 Install essential software on host
 
 ```
-sudo apt install -y git-lfs 
+sudo apt install -y git-lfs python3-vcstool
 ```
 
 Make workspace folder and pull all packages
