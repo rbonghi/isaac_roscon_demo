@@ -1,0 +1,18 @@
+- git:
+    local-name: isaac_roscon_demo
+    uri: https://github.com/rbonghi/isaac_roscon_demo.git
+- git:
+    local-name: isaac_ros_common
+    uri: https://github.com/NVIDIA-ISAAC-ROS/isaac_ros_common.git
+- git:
+    local-name: isaac_ros_nitros
+    uri: https://github.com/NVIDIA-ISAAC-ROS/isaac_ros_nitros.git
+- git:
+    local-name: isaac_ros_image_pipeline
+    uri: https://github.com/NVIDIA-ISAAC-ROS/isaac_ros_image_pipeline.git
+- git:
+    local-name: isaac_ros_dnn_stereo_disparity
+    uri: https://github.com/NVIDIA-ISAAC-ROS/isaac_ros_dnn_stereo_disparity.git
+- git:
+    local-name: isaac_ros_argus_camera
+    uri: https://github.com/NVIDIA-ISAAC-ROS/isaac_ros_argus_camera.git
