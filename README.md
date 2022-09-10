@@ -20,19 +20,22 @@ vcs import src < demo.rosinstall
 vcs pull src
 ```
 
-# Build from docker
-
-Start docker 
+Build docker and run docker
 
 ```
+cd $HOME/workspaces/isaac_ros-dev/ros_ws/src/isaac_roscon_demo
 scripts/run_dev.sh
 ```
+
+# Docker
+
+## Build ROS2 packages
 
 ```
 colcon build --symlink-install --merge-install
 ```
 
-# Run
+## Run
 
 Launch script
 
