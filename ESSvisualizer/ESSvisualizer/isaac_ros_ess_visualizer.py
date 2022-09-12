@@ -119,8 +119,14 @@ class ESSVisualizer(Node):
 def main():
     args = get_args()
     rclpy.init()
-    rclpy.spin(ESSVisualizer(args))
+    # Start node
+    ess_visualizer = ESSVisualizer(args)
+    rclpy.spin(ess_visualizer)
+    # Destroy the node explicitly
+    ess_visualizer.destroy_node()
+    rclpy.shutdown()
 
 
 if __name__ == '__main__':
     main()
+# EOF
