@@ -40,6 +40,7 @@ colcon build --symlink-install --merge-install
 Launch script
 
 ```
+source install/setup.bash
 ros2 launch isaac_roscon_demo demo.launch.py
 ```
 
