@@ -106,7 +106,7 @@ class ESSVisualizer(Node):
     def ess_callback(self, disp_msg):
         self.get_logger().info('Result was received.')
         disp_img = self._bridge.imgmsg_to_cv2(disp_msg.image)
-        # Normalize and convert to colormap for visalization
+        # Normalize and convert to colormap for visualization
         disp_img = (disp_img - disp_img.min()) / disp_img.max() * 255
         color_map = cv2.applyColorMap(disp_img.astype(np.uint8), cv2.COLORMAP_VIRIDIS)
         if self.args.save_image:

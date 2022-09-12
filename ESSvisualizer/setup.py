@@ -49,7 +49,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'ess_visualizer = nanosaur_base.nanosaur:main',
+            'ess_visualizer = ESSvisualizer.isaac_ros_ess_visualizer:main',
         ],
     },
 )
