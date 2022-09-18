@@ -108,10 +108,17 @@ def generate_launch_description():
         output='screen'
     )
 
+    ess_visualizer_node = Node(
+        package='ESSvisualizer',
+        executable='ess_visualizer',
+        output='screen'
+    )
+
     # https://github.com/RobotWebTools/rosbridge_suite/issues/407
     rosbridge_process = ExecuteProcess(
         cmd=["ros2", "launch", "rosbridge_server", "rosbridge_websocket_launch.xml"],
         output="screen",
     )
 
-    return launch.LaunchDescription([realsense_camera_node, container, rosbridge_process])
+    return launch.LaunchDescription([ess_visualizer_node])
+    # realsense_camera_node, container, rosbridge_process, 

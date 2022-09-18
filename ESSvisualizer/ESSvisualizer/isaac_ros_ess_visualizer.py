@@ -38,32 +38,31 @@ def get_args():
                         help='Absolute path to save your result.')
     parser.add_argument('--raw_inputs', action='store_true',
                         help='Use rosbag as inputs or raw image and camera info files as inputs.')
-    parser.add_argument('--rosbag_path',
-                        default='/workspaces/isaac_ros-dev/src/isaac_ros_dnn_stereo_disparity/'
-                                'resources/rosbags/ess_rosbag',
-                        help='Absolute path to your rosbag.')
-    parser.add_argument('--left_image_path',
-                        default='/workspaces/isaac_ros-dev/src/isaac_ros_dnn_stereo_disparity/'
-                                'resources/examples/left.png',
-                        help='Absolute path your left image.')
-    parser.add_argument('--right_image_path',
-                        default='/workspaces/isaac_ros-dev/src/isaac_ros_dnn_stereo_disparity/'
-                                'resources/examples/right.png',
-                        help='Absolute path your right image.')
-    parser.add_argument('--camera_info_path',
-                        default='/workspaces/isaac_ros-dev/src/isaac_ros_dnn_stereo_disparity/'
-                                'resources/examples/camera.json',
-                        help='Absolute path your camera info json file.')
     args = parser.parse_args()
     return args
 
 
 class ESSVisualizer(Node):
 
-    def __init__(self, args):
+    def __init__(self, args=None):
         super().__init__('ess_visualizer')
         self.args = args
         self.encoding = 'rgb8'
+
+
+        # help='Absolute path to your rosbag.'
+        self.declare_parameter("rosbag_path", "/workspaces/isaac_ros-dev/src/isaac_ros_dnn_stereo_disparity/resources/rosbags/ess_rosbag")
+        self.rosbag_path = self.get_parameter("rosbag_path")
+        # help='Absolute path your left image.'
+        self.declare_parameter("left_image_path", "/workspaces/isaac_ros-dev/src/isaac_ros_dnn_stereo_disparity/resources/examples/left.png")
+        self.left_image_path = self.get_parameter("left_image_path")
+        # help='Absolute path your right image.'
+        self.declare_parameter("right_image_path", "/workspaces/isaac_ros-dev/src/isaac_ros_dnn_stereo_disparity/resources/examples/right.png")
+        self.right_image_path = self.get_parameter("right_image_path")
+        # help='Absolute path your camera info json file.'
+        self.declare_parameter("camera_info_path", "/workspaces/isaac_ros-dev/src/isaac_ros_dnn_stereo_disparity/resources/examples/camera.json")
+        self.camera_info_path = self.get_parameter("camera_info_path")
+
         self._bridge = cv_bridge.CvBridge()
 
         self._disp_sub = self.create_subscription(
@@ -73,6 +72,7 @@ class ESSVisualizer(Node):
         #     self._prepare_raw_inputs()
         # else:
         #     self._prepare_rosbag_inputs()
+        self.get_logger().info(f"ESS visualizer started")
 
     def _prepare_rosbag_inputs(self):
         subprocess.Popen('ros2 bag play -l ' + self.args.rosbag_path, shell=True)
@@ -86,6 +86,9 @@ class ESSVisualizer(Node):
             CameraInfo, 'left/camera_info', 10)
         self._camera_right_pub = self.create_publisher(
             CameraInfo, 'right/camera_info', 10)
+        # Output disparity
+        self._disparity_view_pub = self.create_publisher(
+            Image, 'disparity_view', 10)
 
         self.create_timer(5, self.timer_callback)
 
@@ -109,22 +112,28 @@ class ESSVisualizer(Node):
         # Normalize and convert to colormap for visualization
         disp_img = (disp_img - disp_img.min()) / disp_img.max() * 255
         color_map = cv2.applyColorMap(disp_img.astype(np.uint8), cv2.COLORMAP_VIRIDIS)
-        if self.args.save_image:
-            cv2.imwrite(self.args.result_path, color_map)
-        else:
-            cv2.imshow('ess_output', color_map)
+
+        self.disparity_msg = self._bridge.cv2_to_imgmsg(np.array(color_map), self.encoding)
+        self._disparity_view_pub.publish(self.disparity_msg)
+        #if self.args.save_image:
+        #    cv2.imwrite(self.args.result_path, color_map)
+        #else:
+        #    cv2.imshow('ess_output', color_map)
         cv2.waitKey(1)
 
 
-def main():
-    args = get_args()
-    rclpy.init()
+def main(args=None):
+    rclpy.init(args=args)
+    #args = get_args()
     # Start node
-    ess_visualizer = ESSVisualizer(args)
-    rclpy.spin(ess_visualizer)
+    ess_visualizer = ESSVisualizer()
+    try:
+        rclpy.spin(ess_visualizer)
+    except (KeyboardInterrupt, SystemExit):
+        pass
     # Destroy the node explicitly
     ess_visualizer.destroy_node()
-    rclpy.shutdown()
+    # rclpy.shutdown()
 
 
 if __name__ == '__main__':
