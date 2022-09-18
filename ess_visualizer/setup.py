@@ -23,7 +23,7 @@ from setuptools import setup
 from os import path
 from glob import glob
 
-package_name = 'ESSvisualizer'
+package_name = 'ess_visualizer'
 
 here = path.abspath(path.dirname(__file__))
 with open(path.join(here, 'requirements.txt'), encoding='utf-8') as f:
@@ -49,7 +49,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'ess_visualizer = ESSvisualizer.isaac_ros_ess_visualizer:main',
+            'ess_visualizer = ess_visualizer.isaac_ros_ess_visualizer:main',
         ],
     },
 )

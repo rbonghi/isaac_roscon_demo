@@ -109,7 +109,7 @@ def generate_launch_description():
     )
 
     ess_visualizer_node = Node(
-        package='ESSvisualizer',
+        package='ess_visualizer',
         executable='ess_visualizer',
         output='screen'
     )

@@ -19,7 +19,7 @@ DEALINGS IN THE SOFTWARE
 -->
 <?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
-    <name>ESSvisualizer</name>
+    <name>ess_visualizer</name>
     <version>0.1.0</version>
     <description>Show output from Isaac ROS ESS</description>
 
