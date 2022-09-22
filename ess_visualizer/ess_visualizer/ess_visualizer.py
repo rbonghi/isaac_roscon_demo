@@ -31,23 +31,20 @@ from sensor_msgs.msg import CameraInfo, Image
 from stereo_msgs.msg import DisparityImage
 
 
-def get_args():
-    parser = argparse.ArgumentParser(description='ESS Disparity Node Visualizer')
-    parser.add_argument('--save_image', action='store_true', help='Save output or display it.')
-    parser.add_argument('--result_path', default='/workspaces/isaac_ros-dev/src/output.png',
-                        help='Absolute path to save your result.')
-    parser.add_argument('--raw_inputs', action='store_true',
-                        help='Use rosbag as inputs or raw image and camera info files as inputs.')
-    args = parser.parse_args()
-    return args
-
-
 class ESSVisualizer(Node):
 
-    def __init__(self, args=None):
+    def __init__(self):
         super().__init__('ess_visualizer')
-        self.args = args
         self.encoding = 'rgb8'
+        # help='Save output or display it.'
+        self.declare_parameter("save_image", False)
+        self.save_image = bool(self.get_parameter("save_image").value)
+        # help='Absolute path to your rosbag.'
+        self.declare_parameter("result_path", "/workspaces/isaac_ros-dev/src/output.png")
+        self.result_path = self.get_parameter("result_path")
+        # help='Use rosbag as inputs or raw image and camera info files as inputs.'
+        self.declare_parameter("raw_inputs", False)
+        self.raw_inputs = bool(self.get_parameter("raw_inputs").value)
 
         # help='Absolute path to your rosbag.'
         self.declare_parameter("rosbag_path", "/workspaces/isaac_ros-dev/src/isaac_ros_dnn_stereo_disparity/resources/rosbags/ess_rosbag")
@@ -67,14 +64,14 @@ class ESSVisualizer(Node):
         self._disp_sub = self.create_subscription(
             DisparityImage, 'disparity', self.ess_callback, 10)
 
-        # if self.args.raw_inputs:
+        # if self.raw_inputs:
         #     self._prepare_raw_inputs()
         # else:
         #     self._prepare_rosbag_inputs()
         self.get_logger().info(f"ESS visualizer started")
 
     def _prepare_rosbag_inputs(self):
-        subprocess.Popen('ros2 bag play -l ' + self.args.rosbag_path, shell=True)
+        subprocess.Popen('ros2 bag play -l ' + self.rosbag_path, shell=True)
 
     def _prepare_raw_inputs(self):
         self._img_left_pub = self.create_publisher(
@@ -91,12 +88,12 @@ class ESSVisualizer(Node):
 
         self.create_timer(5, self.timer_callback)
 
-        left_img = cv2.imread(self.args.left_image_path)
-        right_img = cv2.imread(self.args.right_image_path)
+        left_img = cv2.imread(self.left_image_path)
+        right_img = cv2.imread(self.right_image_path)
         self.left_msg = self._bridge.cv2_to_imgmsg(np.array(left_img), self.encoding)
         self.right_msg = self._bridge.cv2_to_imgmsg(np.array(right_img), self.encoding)
 
-        self.camera_info = JSONConversion.load_camera_info_from_json(self.args.camera_info_path)
+        self.camera_info = JSONConversion.load_camera_info_from_json(self.camera_info_path)
 
     def timer_callback(self):
         self._img_left_pub.publish(self.left_msg)
@@ -114,8 +111,8 @@ class ESSVisualizer(Node):
 
         self.disparity_msg = self._bridge.cv2_to_imgmsg(np.array(color_map), self.encoding)
         self._disparity_view_pub.publish(self.disparity_msg)
-        #if self.args.save_image:
-        #    cv2.imwrite(self.args.result_path, color_map)
+        #if self.save_image:
+        #    cv2.imwrite(self.result_path, color_map)
         #else:
         #    cv2.imshow('ess_output', color_map)
         cv2.waitKey(1)
