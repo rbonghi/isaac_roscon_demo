@@ -25,6 +25,8 @@ sudo cp librealsense/config/99-realsense-libusb.rules /etc/udev/rules.d/
 sudo udevadm control --reload-rules && udevadm trigger
 ```
 
+After install the udev rules unplug and plug your realsense
+
 ## Isaac ROS
 
 Install essential software on host
