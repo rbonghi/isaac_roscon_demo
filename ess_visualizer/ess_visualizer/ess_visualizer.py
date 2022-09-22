@@ -49,7 +49,6 @@ class ESSVisualizer(Node):
         self.args = args
         self.encoding = 'rgb8'
 
-
         # help='Absolute path to your rosbag.'
         self.declare_parameter("rosbag_path", "/workspaces/isaac_ros-dev/src/isaac_ros_dnn_stereo_disparity/resources/rosbags/ess_rosbag")
         self.rosbag_path = self.get_parameter("rosbag_path")

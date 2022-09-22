@@ -49,7 +49,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'ess_visualizer = ess_visualizer.isaac_ros_ess_visualizer:main',
+            'ess_visualizer = ess_visualizer.ess_visualizer:main',
         ],
     },
 )
