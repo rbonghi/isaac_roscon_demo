@@ -63,7 +63,9 @@ class ESSVisualizer(Node):
 
         self._disp_sub = self.create_subscription(
             DisparityImage, '/isaac_ros/disparity', self.ess_callback, 10)
-
+        # Output disparity
+        self._disparity_view_pub = self.create_publisher(
+            Image, 'disparity_view', 10)
         # if self.raw_inputs:
         #     self._prepare_raw_inputs()
         # else:
@@ -82,9 +84,7 @@ class ESSVisualizer(Node):
             CameraInfo, 'left/camera_info', 10)
         self._camera_right_pub = self.create_publisher(
             CameraInfo, 'right/camera_info', 10)
-        # Output disparity
-        self._disparity_view_pub = self.create_publisher(
-            Image, 'disparity_view', 10)
+
 
         self.create_timer(5, self.timer_callback)
 

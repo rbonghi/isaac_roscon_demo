@@ -126,7 +126,7 @@ def generate_launch_description():
     ld.add_action(realsense_camera_node)
     ld.add_action(container)
     ld.add_action(rosbridge_process)
-    #ld.add_action(ess_visualizer_node)
+    ld.add_action(ess_visualizer_node)
 
     return ld
 # EOF
