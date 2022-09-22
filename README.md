@@ -2,7 +2,21 @@
 
 Demo docker for ROScon 2022
 
-# Install and setup
+# Install 
+
+There are two steps to follow, Install FoxGlove and Install Isaac ROS
+
+# Foxglove
+
+Download the latest [foxglove](https://foxglove.dev/download) version for ARM64
+
+```
+sudo apt install ./foxglove-studio-*.deb
+sudo apt update
+sudo apt install -y foxglove-studio
+```
+
+# Isaac ROS
 
 Install essential software on host
 
