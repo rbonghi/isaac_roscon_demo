@@ -25,6 +25,7 @@ from launch.actions import IncludeLaunchDescription
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch_ros.descriptions import ComposableNode
 from ament_index_python.packages import get_package_share_directory
+from launch import LaunchDescription
 from launch.actions import ExecuteProcess
 
 import tempfile
@@ -120,5 +121,12 @@ def generate_launch_description():
         output="screen",
     )
 
-    return launch.LaunchDescription([ess_visualizer_node])
-    # realsense_camera_node, container, rosbridge_process, 
+    ld = LaunchDescription()
+
+    ld.add_action(realsense_camera_node)
+    ld.add_action(container)
+    ld.add_action(rosbridge_process)
+    ld.add_action(ess_visualizer_node)
+
+    return ld
+# EOF

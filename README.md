@@ -58,6 +58,14 @@ Run from docker container
 colcon build --symlink-install --merge-install
 ```
 
+## Convert model
+
+Following [isaac_ros_dnn_stereo_disparity](https://github.com/NVIDIA-ISAAC-ROS/isaac_ros_dnn_stereo_disparity) convert the DNN stereo disparity model
+
+```
+/opt/nvidia/tao/tao-converter -k ess -t fp16 -e /workspaces/isaac_ros-dev/src/isaac_ros_dnn_stereo_disparity/resources/ess.engine -o output_left /workspaces/isaac_ros-dev/src/isaac_ros_dnn_stereo_disparity/resources/ess.etlt
+```
+
 ## Run
 
 Launch script from docker container
