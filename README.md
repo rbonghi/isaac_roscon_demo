@@ -36,13 +36,15 @@ bash scripts/run_dev.sh $HOME/isaac_ros-dev/ros_ws
 
 ## Build ROS2 packages
 
+Run from docker container
+
 ```
 colcon build --symlink-install --merge-install
 ```
 
 ## Run
 
-Launch script
+Launch script from docker container
 
 ```
 source install/setup.bash
