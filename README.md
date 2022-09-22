@@ -5,7 +5,7 @@ Demo docker for ROScon 2022
 # Hardware required
 
 1. NVIDIA Jetson Orin/Xavier
-2. Jetpack 5.x.x
+2. Jetpack 5.0.2+
 3. Realsense d435 (Other Realsenses should work, but I didn't test)
 4. Display (connect to Jetson)
 5. Keyboard (connect to Jetson)
