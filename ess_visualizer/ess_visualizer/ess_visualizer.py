@@ -62,7 +62,7 @@ class ESSVisualizer(Node):
         self._bridge = cv_bridge.CvBridge()
 
         self._disp_sub = self.create_subscription(
-            DisparityImage, 'disparity', self.ess_callback, 10)
+            DisparityImage, '/isaac_ros/disparity', self.ess_callback, 10)
 
         # if self.raw_inputs:
         #     self._prepare_raw_inputs()

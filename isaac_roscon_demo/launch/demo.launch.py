@@ -93,9 +93,9 @@ def generate_launch_description():
         plugin='nvidia::isaac_ros::dnn_stereo_disparity::ESSDisparityNode',
         parameters=[{'engine_file_path': engine_file_path}],
         remappings=[
-            ('left/camera_info', 'infra1/camera_info'),
+            ('left/camera_info', '/infra1/camera_info'),
             ('left/image_rect', 'infra1/image_rect_raw'),
-            ('right/camera_info', 'infra2/camera_info'),
+            ('right/camera_info', '/infra2/camera_info'),
             ('right/image_rect', 'infra2/image_rect_raw')
         ]
     )
@@ -126,7 +126,7 @@ def generate_launch_description():
     ld.add_action(realsense_camera_node)
     ld.add_action(container)
     ld.add_action(rosbridge_process)
-    ld.add_action(ess_visualizer_node)
+    #ld.add_action(ess_visualizer_node)
 
     return ld
 # EOF
