@@ -1,6 +1,10 @@
+#- git:
+#    local-name: isaac_roscon_demo
+#    uri: https://github.com/rbonghi/isaac_roscon_demo.git
 - git:
-    local-name: isaac_roscon_demo
-    uri: https://github.com/rbonghi/isaac_roscon_demo.git
+    local-name: realsense-ros
+    version: ros2
+    uri: https://github.com/IntelRealSense/realsense-ros.git
 - git:
     local-name: isaac_ros_common
     uri: https://github.com/NVIDIA-ISAAC-ROS/isaac_ros_common.git
