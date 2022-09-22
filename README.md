@@ -2,7 +2,15 @@
 
 Demo docker for ROScon 2022
 
-# Install 
+# Hardware required
+
+1. NVIDIA Jetson Orin/Xavier
+2. Jetpack 5.x.x
+3. Realsense d435 (Other Realsenses should works but I didn't test)
+4. Display (connect to Jetson)
+5. Keyboard (connect to Jetson)
+
+# Install
 
 There are two steps to follow, Install FoxGlove and Install Isaac ROS
 
@@ -92,6 +100,29 @@ source install/setup.bash
 ros2 launch isaac_roscon_demo demo.launch.py
 ```
 
+# Setup foxglove
+
+1. Open foxglove
+2. Set up **Open connection**
+
+
+![Foxglove setup connection](.docs/01-foxglove-setup-connection.png)
+
+3. Select **ROS2** and **Open**
+
+![Foxglove ROS2](.docs/02-foxglove-connection.png)
+
+4. Select `/disparity_view`
+
+![Foxglove ROS2](.docs/03-foxglove-topic.png)
+
+5. Final output
+
+![Foxglove output](.docs/output_foxglove.png)
+
+# How it is works
+
+![ROS2 graph](.docs/rosgraph-ESS.png)
 
 # Troubleshooting
 
