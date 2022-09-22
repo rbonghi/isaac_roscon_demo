@@ -6,7 +6,7 @@ Demo docker for ROScon 2022
 
 1. NVIDIA Jetson Orin/Xavier
 2. Jetpack 5.x.x
-3. Realsense d435 (Other Realsenses should works but I didn't test)
+3. Realsense d435 (Other Realsenses should work, but I didn't test)
 4. Display (connect to Jetson)
 5. Keyboard (connect to Jetson)
 
