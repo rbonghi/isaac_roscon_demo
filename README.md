@@ -16,6 +16,15 @@ sudo apt update
 sudo apt install -y foxglove-studio
 ```
 
+## Fix realsense udev
+
+```
+cd $HOME
+git clone https://github.com/IntelRealSense/librealsense.git
+sudo cp librealsense/config/99-realsense-libusb.rules /etc/udev/rules.d/
+sudo udevadm control --reload-rules && udevadm trigger
+```
+
 ## Isaac ROS
 
 Install essential software on host
@@ -38,11 +47,17 @@ vcs import src < demo.rosinstall
 vcs pull src
 ```
 
-Build docker and run docker
+Config Isaac ROS common to build realsense example image
 
 ```
 cd $HOME/isaac_ros-dev/ros_ws/src/isaac_ros_common
 cp docker/realsense-dockerfile-example/.isaac_ros_common-config scripts/
+```
+
+Build and run docker image
+
+```
+cd $HOME/isaac_ros-dev/ros_ws/src/isaac_ros_common
 bash scripts/run_dev.sh $HOME/isaac_ros-dev/ros_ws
 ```
 
@@ -73,4 +88,21 @@ Launch script from docker container
 ```
 source install/setup.bash
 ros2 launch isaac_roscon_demo demo.launch.py
+```
+
+
+# Troubleshooting
+
+If when you run the script `scripts/run_dev.sh` you read this error
+
+```
+docker: Error response from daemon: Conflict. The container name "/isaac_ros_dev-aarch64-container" is already in use by container "c9138a240269375558c2e7586e69bc41b6b40e478b29b1fb8ca53af781fea0dc". You have to remove (or rename) that container to be able to reuse that name.
+See 'docker run --help'.
+~/isaac_ros-dev/ros_ws/src/isaac_ros_common
+```
+
+run
+
+```
+docker system prune
 ```
