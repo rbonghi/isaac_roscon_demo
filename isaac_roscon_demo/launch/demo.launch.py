@@ -105,7 +105,7 @@ def generate_launch_description():
         namespace='isaac_ros',
         package='rclcpp_components',
         executable='component_container_mt',
-        composable_node_descriptions=[disparity_node, image_format_converter_node_left, image_format_converter_node_right],
+        composable_node_descriptions=[image_format_converter_node_left, image_format_converter_node_right],
         output='screen'
     )
 
@@ -125,8 +125,8 @@ def generate_launch_description():
 
     ld.add_action(realsense_camera_node)
     ld.add_action(container)
-    ld.add_action(rosbridge_process)
-    ld.add_action(ess_visualizer_node)
+    #ld.add_action(rosbridge_process)
+    #ld.add_action(ess_visualizer_node)
 
     return ld
 # EOF

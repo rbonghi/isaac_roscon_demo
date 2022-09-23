@@ -51,7 +51,6 @@ Make workspace folder and pull all packages
 
 ```
 cd $HOME/isaac_ros-dev/ros_ws
-# wget -L https://raw.githubusercontent.com/rbonghi/isaac_roscon_demo/main/demo.rosinstall -o demo.rosinstall
 cp src/isaac_roscon_demo/demo.rosinstall demo.rosinstall
 vcs import src < demo.rosinstall
 vcs pull src
@@ -138,4 +137,10 @@ run
 
 ```
 docker system prune
+```
+
+# Fix later
+
+```
+wget -L https://raw.githubusercontent.com/rbonghi/isaac_roscon_demo/main/demo.rosinstall -o demo.rosinstall
 ```
