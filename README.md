@@ -43,15 +43,13 @@ Install essential software on host
 sudo apt install -y git-lfs python3-vcstool
 mkdir -p $HOME/isaac_ros-dev/ros_ws/src
 cd $HOME/isaac_ros-dev/ros_ws/src
-git clone https://github.com/NVIDIA-ISAAC-ROS/isaac_ros_common.git
-git clone https://github.com/rbonghi/isaac_roscon_demo.git
+wget -L https://raw.githubusercontent.com/rbonghi/isaac_roscon_demo/main/demo.rosinstall -o demo.rosinstall
 ```
 
 Make workspace folder and pull all packages
 
 ```
 cd $HOME/isaac_ros-dev/ros_ws
-cp src/isaac_roscon_demo/demo.rosinstall demo.rosinstall
 vcs import src < demo.rosinstall
 vcs pull src
 ```
@@ -137,10 +135,4 @@ run
 
 ```
 docker system prune
-```
-
-# Fix later
-
-```
-wget -L https://raw.githubusercontent.com/rbonghi/isaac_roscon_demo/main/demo.rosinstall -o demo.rosinstall
 ```
