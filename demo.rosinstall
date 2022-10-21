@@ -1,6 +1,6 @@
-#- git:
-#    local-name: isaac_roscon_demo
-#    uri: https://github.com/rbonghi/isaac_roscon_demo.git
+- git:
+    local-name: isaac_roscon_demo
+    uri: https://github.com/rbonghi/isaac_roscon_demo.git
 - git:
     local-name: realsense-ros
     version: ros2-beta
