@@ -40,7 +40,7 @@ After install the udev rules unplug and plug your realsense
 Install essential software on host
 
 ```
-sudo apt install -y git-lfs python3-vcstool
+sudo apt install -y git-lfs python3-vcstools
 mkdir -p $HOME/isaac_ros-dev/ros_ws/src
 cd $HOME/isaac_ros-dev/ros_ws/src
 wget -L https://raw.githubusercontent.com/rbonghi/isaac_roscon_demo/main/demo.rosinstall -o demo.rosinstall
